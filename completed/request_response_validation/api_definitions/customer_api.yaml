@@ -9,56 +9,64 @@ x-wso2-production-endpoints:
   urls:
   - http://localhost:8080
 paths:
-  "/customer":
+  '/customer':
     get:
       responses:
-        "200":
+        '200':
           description: ok, get all customer data
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/customerSchema'
     post:
       responses:
-        "200":
+        '200':
           description: ok, succussfully added new customer
-        "500":
+        '500':
           description: internal server error
       requestBody:
-        $ref: "#/components/requestBodies/customer"
-
-  "/customer/{customer-id}":
+        $ref: '#/components/requestBodies/customerBody'
+  '/customer/{customerId}':
     get:
       responses:
-        "200":
+        '200':
           description: ok, get customer data for a given id
-        "404":
+        '404':
           description: error, customer not found for the given id
       parameters:
         - in: path
-          name: customer-id
-          required: false
+          name: customerId
+          required: true
           schema:
             type: integer
-            minimum: 1
+            format: int32
 security:
   - customer_api_basic_auth: []
 components:
+  # basic authentication config
   securitySchemes:
     customer_api_basic_auth:
       type: http
       scheme: basic
+  # request bodies
   requestBodies:
-    customer:
+    customerBody:
       content:
         application/json:
           schema: 
-            $ref: "#/components/schemas/customer"
-      required: false
+            $ref: '#/components/schemas/customerSchema'
+      required: true
+  #schemas
   schemas:
-    customer:
+    customerSchema:
       type: object
+      required:
+        - id
+        - name
       properties:
         id: 
           type: integer
         name:
           type: string
-      required:
-        - id
-        - name
