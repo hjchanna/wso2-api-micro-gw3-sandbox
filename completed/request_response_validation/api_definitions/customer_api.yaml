@@ -35,7 +35,6 @@ paths:
       responses:
         '200':
           description: ok, get customer data for a given id
-          # ERROR: response body validation also doesn't work
           content:
             application/json:
               schema:
