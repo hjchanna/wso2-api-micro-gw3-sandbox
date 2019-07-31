@@ -14,6 +14,7 @@ paths:
       responses:
         '200':
           description: ok, get all customer data
+          # ERROR: response body validation always fails for the type array
           content:
             application/json:
               schema:
@@ -26,6 +27,7 @@ paths:
           description: ok, succussfully added new customer
         '500':
           description: internal server error
+      # ERROR: request body validation doesn't work
       requestBody:
         $ref: '#/components/requestBodies/customerBody'
   '/customer/{customerId}':
@@ -33,8 +35,14 @@ paths:
       responses:
         '200':
           description: ok, get customer data for a given id
+          # ERROR: response body validation also doesn't work
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customerSchema'
         '404':
           description: error, customer not found for the given id
+      # ERROR: path variable validation doesn't work
       parameters:
         - in: path
           name: customerId
