@@ -50,7 +50,7 @@ service customer_service on new http:Listener(8080) {
             log:printError("Customer not found for id: " + customerId, err = ());
 
             json payload = {
-                message: "Customer not fount for the id: " + customerId
+                message: "Customer not foundr for the id: " + customerId
             };
             response.setJsonPayload(untaint payload, contentType = "application/json");
             response.statusCode = 404;
