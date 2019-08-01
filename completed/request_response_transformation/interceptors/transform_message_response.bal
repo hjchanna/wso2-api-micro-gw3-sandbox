@@ -1,7 +1,7 @@
 import ballerina/io;
 import ballerina/http;
 
-public function transformErrorResponse(http:Caller outboundEp, http:Response res) {
+public function transformMessageResponse (http:Caller inboundEp, http:Response res) {
     int statusCode = res.statusCode;
     if (404 == statusCode || 500 == statusCode) {
         json responsePayload = {
@@ -19,6 +19,4 @@ public function transformErrorResponse(http:Caller outboundEp, http:Response res
             res.setJsonPayload(untaint responsePayload, contentType = "application/json");
         }
     }
-
-    var result = outboundEp->respond(res);
 }

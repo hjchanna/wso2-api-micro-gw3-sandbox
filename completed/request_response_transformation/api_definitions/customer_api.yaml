@@ -20,6 +20,7 @@ paths:
           description: ok, succussfully added new customer
         '500':
           description: internal server error
+      x-wso2-request-interceptor: transformPostRequest
   '/customer/{customer-id}':
     get:
       responses:
@@ -34,4 +35,4 @@ components:
     customer_api_basic_auth:
       type: http
       scheme: basic
-x-wso2-response-interceptor: transformErrorResponse
+x-wso2-response-interceptor: transformMessageResponse
